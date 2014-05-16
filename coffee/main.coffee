@@ -130,10 +130,10 @@ EndScreen = enchant.Class.create enchant.Sprite,
       label.x = 40
       label.y = 280
       game.rootScene.addChild(label)
+      game.rootScene.addEventListener 'touchstart', ->
+        window.location.reload()
     , 3000
 
-    game.rootScene.addEventListener 'touchstart', ->
-      window.location.reload()
 
 awards = [
   "プー太郎",

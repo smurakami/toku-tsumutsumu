@@ -148,18 +148,18 @@
         label.y = 220;
         return game.rootScene.addChild(label);
       }, 2000);
-      setTimeout(function() {
+      return setTimeout(function() {
         var award, label;
         award = awardTitle(score.num);
         label = new Label("クリックでもういちど");
         label.font = '20px sans-serif';
         label.x = 40;
         label.y = 280;
-        return game.rootScene.addChild(label);
+        game.rootScene.addChild(label);
+        return game.rootScene.addEventListener('touchstart', function() {
+          return window.location.reload();
+        });
       }, 3000);
-      return game.rootScene.addEventListener('touchstart', function() {
-        return window.location.reload();
-      });
     }
   });
 
