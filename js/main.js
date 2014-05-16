@@ -44,6 +44,9 @@
       if (y == null) {
         y = TOKU_DEFAULT_Y;
       }
+      if (gameIsOver) {
+        return;
+      }
       PhyBoxSprite.call(this, 32, 32, enchant.box2d.DYNAMIC_SPRITE, 1.0, 1.0, 0.4, false);
       this.image = game.assets[tokuImage];
       x -= game.rootScene.x;

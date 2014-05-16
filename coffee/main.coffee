@@ -29,6 +29,7 @@ tokuImage = "img/toku_min.png"
 MOVE_TOP_THRESHOLD = 100
 Toku = enchant.Class.create PhyBoxSprite,
   initialize: (x=GAME_WIDTH/2, y=TOKU_DEFAULT_Y) ->
+    if gameIsOver then return
     PhyBoxSprite.call(this, 32, 32, enchant.box2d.DYNAMIC_SPRITE, 1.0, 1.0, 0.4, false)
     @image = game.assets[tokuImage]
     x -= game.rootScene.x
