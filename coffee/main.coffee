@@ -136,7 +136,7 @@ EndScreen = enchant.Class.create enchant.Sprite,
 
 awards = [
   "プー太郎",
-  "ただの人",
+  "人",
   "先生",
   "僧侶",
   "菩薩",
