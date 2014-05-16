@@ -40,18 +40,24 @@ Toku = enchant.Class.create PhyBoxSprite,
   checkPos: ->
     self = this
     setTimeout ->
-      console.log "self.y: #{self.y}"
-      console.log "game.rootScene.y: #{game.rootScene.y}"
-      console.log "MOVE_TOP_THRESHOLD: #{MOVE_TOP_THRESHOLD}"
-      console.log "minus: #{- game.rootScene.y + MOVE_TOP_THRESHOLD}"
+      # console.log "self.y: #{self.y}"
+      # console.log "game.rootScene.y: #{game.rootScene.y}"
+      # console.log "MOVE_TOP_THRESHOLD: #{MOVE_TOP_THRESHOLD}"
+      # console.log "minus: #{- game.rootScene.y + MOVE_TOP_THRESHOLD}"
       if self.y < -game.rootScene.y + MOVE_TOP_THRESHOLD
         setGamePos(0, game.rootScene.y + MOVE_TOP_THRESHOLD)
     , 500
 
   update: ->
-    if gameIsOver then return
+    if gameIsOver
+      @destroy()
+      return
     if @y > GAME_HEIGHT + @height
       gameover()
+
+  destroy: ->
+    @removeEventListener("enterframe", @update)
+    game.rootScene.removeChild(this)
 
 
 Score = enchant.Class.create enchant.Label,
@@ -84,7 +90,6 @@ Title = enchant.Class.create enchant.Sprite,
 EndScreen = enchant.Class.create enchant.Sprite,
   initialize: ->
     enchant.Sprite.call(this, GAME_WIDTH, GAME_HEIGHT)
-    console.log("EndScreen")
     self = this
     this.backgroundColor = "#fff"
     game.rootScene.addChild(this)
@@ -119,7 +124,7 @@ EndScreen = enchant.Class.create enchant.Sprite,
 
     setTimeout ->
       award = awardTitle(score.num)
-      label = new Label("クリックでリスタート")
+      label = new Label("クリックでもういちど")
       label.font = '20px sans-serif'
       label.x = 40
       label.y = 280
@@ -131,8 +136,7 @@ EndScreen = enchant.Class.create enchant.Sprite,
 
 awards = [
   "プー太郎",
-  "凡人",
-  "エリート",
+  "ただの人",
   "先生",
   "僧侶",
   "菩薩",
@@ -144,7 +148,6 @@ scoreForAward = [
   10,
   20,
   30,
-  40,
 ]
 
 awardTitle = ->
@@ -155,7 +158,6 @@ awardTitle = ->
     award = awards[idx]
 
 gameover = ->
-  console.log ("gameover")
   gameIsOver = true
   new EndScreen()
   return

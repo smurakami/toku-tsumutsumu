@@ -59,10 +59,6 @@
       var self;
       self = this;
       return setTimeout(function() {
-        console.log("self.y: " + self.y);
-        console.log("game.rootScene.y: " + game.rootScene.y);
-        console.log("MOVE_TOP_THRESHOLD: " + MOVE_TOP_THRESHOLD);
-        console.log("minus: " + (-game.rootScene.y + MOVE_TOP_THRESHOLD));
         if (self.y < -game.rootScene.y + MOVE_TOP_THRESHOLD) {
           return setGamePos(0, game.rootScene.y + MOVE_TOP_THRESHOLD);
         }
@@ -70,11 +66,16 @@
     },
     update: function() {
       if (gameIsOver) {
+        this.destroy();
         return;
       }
       if (this.y > GAME_HEIGHT + this.height) {
         return gameover();
       }
+    },
+    destroy: function() {
+      this.removeEventListener("enterframe", this.update);
+      return game.rootScene.removeChild(this);
     }
   });
 
@@ -114,7 +115,6 @@
     initialize: function() {
       var endLabel, scoreLabel, self;
       enchant.Sprite.call(this, GAME_WIDTH, GAME_HEIGHT);
-      console.log("EndScreen");
       self = this;
       this.backgroundColor = "#fff";
       game.rootScene.addChild(this);
@@ -148,7 +148,7 @@
       setTimeout(function() {
         var award, label;
         award = awardTitle(score.num);
-        label = new Label("クリックでリスタート");
+        label = new Label("クリックでもういちど");
         label.font = '20px sans-serif';
         label.x = 40;
         label.y = 280;
@@ -160,9 +160,9 @@
     }
   });
 
-  awards = ["プー太郎", "凡人", "エリート", "先生", "僧侶", "菩薩"];
+  awards = ["プー太郎", "ただの人", "先生", "僧侶", "菩薩"];
 
-  scoreForAward = [1, 2, 10, 20, 30, 40];
+  scoreForAward = [1, 2, 10, 20, 30];
 
   awardTitle = function() {
     var award, idx, num, _i, _len;
@@ -177,7 +177,6 @@
   };
 
   gameover = function() {
-    console.log("gameover");
     gameIsOver = true;
     new EndScreen();
   };
