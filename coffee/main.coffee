@@ -24,12 +24,12 @@ Floor = enchant.Class.create PhyBoxSprite,
 
 
 TOKU_DEFAULT_Y = 60
+tokuImage = "img/toku_min.png"
 Toku = enchant.Class.create PhyBoxSprite,
   initialize: (x=GAME_WIDTH/2, y=TOKU_DEFAULT_Y) ->
-    console.log 'hello'
     PhyBoxSprite.call(this, 32, 32, enchant.box2d.DYNAMIC_SPRITE, 1.0, 1.0, 0.4, false)
+    @image = game.assets[tokuImage]
     @position = {x: x, y:y}
-    @backgroundColor = 'red'
     game.rootScene.addChild(this)
 
   update: ->
@@ -41,7 +41,7 @@ Toku = enchant.Class.create PhyBoxSprite,
       this.num = 0
       this.y = 10
       @font = '32px sans-serif'
-      @
+      @image = game.assets[tokuImage]
       game.rootScene.addChild(this)
     gain: ->
       this.num++
@@ -51,6 +51,7 @@ Toku = enchant.Class.create PhyBoxSprite,
 window.onload = ->
   game = enchant.Core(GAME_WIDTH, GAME_HEIGHT)
   game.fps = 30
+  game.preload(tokuImage)
 
   game.onload = ->
     world = new PhysicsWorld(0.0, 25)
@@ -61,26 +62,26 @@ window.onload = ->
     , 200
 
     game.rootScene.addEventListener 'touchstart', (e) ->
-        if not toku? then return
-        toku.position =
-            x: e.x
-            y: TOKU_DEFAULT_Y
+      if not toku? then return
+      toku.position =
+        x: e.x
+        y: TOKU_DEFAULT_Y
 
 
     game.rootScene.addEventListener 'touchmove', (e) ->
-        if not toku? then return
-        toku.position =
-            x: e.x
-            y: TOKU_DEFAULT_Y
+      if not toku? then return
+      toku.position =
+        x: e.x
+        y: TOKU_DEFAULT_Y
 
     game.rootScene.addEventListener 'touchend', ->
-        if not toku? then return
-        toku.setAwake true
-        toku = null
-        score.gain()
-        setTimeout ->
-            toku = new Toku
-        , 500
+      if not toku? then return
+      toku.setAwake true
+      toku = null
+      score.gain()
+      setTimeout ->
+        toku = new Toku
+      , 500
 
     game.rootScene.onenterframe = (e) ->
       world.step(game.fps)
