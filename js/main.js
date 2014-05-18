@@ -173,10 +173,11 @@
     for (idx = _i = 0, _len = scoreForAward.length; _i < _len; idx = ++_i) {
       num = scoreForAward[idx];
       if (num > score.num) {
-        return award;
+        break;
       }
       award = awards[idx];
     }
+    return award;
   };
 
   gameover = function() {

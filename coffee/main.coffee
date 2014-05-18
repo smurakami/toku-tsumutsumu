@@ -155,8 +155,9 @@ awardTitle = ->
   award = null
   for num, idx in scoreForAward
     if num > score.num
-      return award
+      break
     award = awards[idx]
+  return award
 
 gameover = ->
   gameIsOver = true
