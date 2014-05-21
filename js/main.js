@@ -163,9 +163,9 @@
     }
   });
 
-  awards = ["プー太郎", "人", "先生", "僧侶", "菩薩"];
+  awards = ["プー太郎", "人", "先生", "僧侶", "仙人", "明王", "菩薩", "如来"];
 
-  scoreForAward = [1, 2, 10, 20, 30];
+  scoreForAward = [1, 2, 10, 20, 30, 40, 50, 60];
 
   awardTitle = function() {
     var award, idx, num, _i, _len;
